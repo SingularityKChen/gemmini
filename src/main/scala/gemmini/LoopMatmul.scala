@@ -636,7 +636,7 @@ class LoopMatmulStC(block_size: Int, coreMaxAddrBits: Int, iterator_bitwidth: In
   val ln_config_norm = Wire(new RoCCCommand)
   ln_config_norm := DontCare
   ln_config_norm.inst.funct := CONFIG_CMD
-  ln_config_norm.rs1 := ln_config_norm_rs1.asUInt()
+  ln_config_norm.rs1 := ln_config_norm_rs1.asUInt
   ln_config_norm.rs2 := DontCare
 
   val ln_mvout_cmd = Wire(new RoCCCommand)
@@ -647,10 +647,10 @@ class LoopMatmulStC(block_size: Int, coreMaxAddrBits: Int, iterator_bitwidth: In
   val ln_mvout_cmd_rs2 = Wire(mvout_rs2_t.cloneType)
   ln_mvout_cmd_rs2 := DontCare
   ln_mvout_cmd_rs2.num_rows := 1.U
-  ln_mvout_cmd_rs2.num_cols := cols.asUInt()
+  ln_mvout_cmd_rs2.num_cols := cols.asUInt
   ln_mvout_cmd_rs2.local_addr := cast_to_acc_addr(ln_mvout_cmd_rs2.local_addr, ln_sp_addr, accumulate = false.B, read_full = req.full_c)
   ln_mvout_cmd_rs2.local_addr.norm_cmd := ln_norm_cmd
-  ln_mvout_cmd.rs2 := ln_mvout_cmd_rs2.asUInt()
+  ln_mvout_cmd.rs2 := ln_mvout_cmd_rs2.asUInt
 
   io.req.ready := state === idle
   io.j := j
